@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { userContext } from "./context/userContext";
 
 const Signup = () => {
-  const [login, setLogin] = useState(false);
-  const [signUp, setSignUp] = useState(false);
-  const [loginForm, setLoginForm] = useState({
-    email: "",
-    password: "",
-  });
+  const  {setLoggedInUser,setIsLogin} = useContext(userContext)
+  const navigate = useNavigate()
   const [signUpForm, setSignUpForm] = useState({
     fullName: "",
     phone: "",
@@ -21,97 +19,23 @@ const Signup = () => {
       [field]: value,
     }));
   };
-
+console.log(signUpForm)
+  const handleSubmit  =()=>{
+      localStorage.setItem("user", JSON.stringify(signUpForm))
+      setLoggedInUser(signUpForm)
+      setIsLogin(true)
+      navigate("/account")
+  }
   
   return (
     <>
-      <div
-        className={`w-full h-screen flex items-end md:justify-center md:items-center p-5 ${
-          login || signUp ? "hidden" : ""
-        }`}
-      >
-        <div className="sm:w-100  flex flex-col gap-y-2">
-          <h1 className="text-2xl font-bold">Welcome to PopX</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta,
-            architecto cupiditate consequuntur a corporis obcaecati.
-          </p>
-          <div className="flex flex-col gap-y-2">
-            <button
-              className="w-full px-3 py-2 bg-blue-600 text-white rounded-md cursor-pointer"
-              onClick={() => setSignUp(true)}
-            >
-              Create Account
-            </button>
-            <button
-              className="w-full px-3 py-2 bg-blue-300 text-black font-bold rounded-md cursor-pointer"
-              onClick={() => setLogin(true)}
-            >
-              Already Registered? Login
-            </button>
-          </div>
-        </div>
-      </div>
-      {/* Login */}
-      {login && (
-        <div className="w-full h-screen flex  md:justify-center md:items-center p-5 ">
-          <div className="sm:w-100  flex flex-col gap-y-2">
-            <h1 className=" text-2xl font-bold">Signin to your PopX account</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-              ipsum inventore fugit totam odit accusantium!
-            </p>
-            <div className="flex flex-col gap-y-3 mt-4">
-              <div className="relative">
-                <label
-                  htmlFor=""
-                  className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium"
-                >
-                  Email Address
-                </label>
-                <input
-                  required
-                  type="email"
-                  value={loginForm.email}
-                  onChange={(e) =>
-                    setLoginForm({ ...loginForm, email: e.target.value })
-                  }
-                  className="w-full px-4 py-2 outline-none border rounded-md"
-                />
-              </div>
-              <div className="relative">
-                <label
-                  htmlFor=""
-                  className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium"
-                >
-                  Password
-                </label>
-                <input
-                  required
-                  type="text"
-                  value={loginForm.password}
-                  onChange={(e) =>
-                    setLoginForm({ ...loginForm, password: e.target.value })
-                  }
-                  className="w-full px-4 py-2 outline-none border rounded-md"
-                />
-              </div>
-            </div>
-            <button className="w-full px-3 py-2 bg-gray-400 text-white font-bold rounded-md cursor-pointer">
-              Login
-            </button>
-          </div>
-        </div>
-      )}
-      {/* Sign Up  */}
-      {signUp && (
         <div className="w-full h-screen md:flex  md:justify-center md:items-center p-5 ">
           <div className="sm:w-100  flex flex-col gap-y-2">
             <h1 className="text-2xl font-bold">Create your <br/> PopX account</h1>
           <div className="w-full sm:flex sm:flex-col sm:justify-center relative  space-y-4 bg-[#F9F9F9] mt-2">
            
             <div className="relative">
-              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium">
+              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-[#6C25FF] font-medium">
                 Full Name
               </label>
               <input
@@ -125,7 +49,7 @@ const Signup = () => {
               />
             </div>
             <div className="relative">
-              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium">
+              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-[#6C25FF] font-medium">
                 Phone
               </label>
               <input
@@ -137,7 +61,7 @@ const Signup = () => {
               />
             </div>
             <div className="relative">
-              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium">
+              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-[#6C25FF] font-medium">
                 Email Address
               </label>
               <input
@@ -149,7 +73,7 @@ const Signup = () => {
               />
             </div>
             <div className="relative">
-              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium">
+              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-[#6C25FF] font-medium">
                 Password
               </label>
               <input
@@ -163,7 +87,7 @@ const Signup = () => {
               />
             </div>
             <div className="relative">
-              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-blue-600 font-medium">
+              <label className="absolute -top-2 left-3 bg-[#F9F9F9] px-1 text-sm text-[#6C25FF] font-medium">
                 Company Name
               </label>
               <input
@@ -175,9 +99,8 @@ const Signup = () => {
                 className="w-full px-4 py-2 border rounded-md outline-none focus:border-purple-500"
               />
             </div>
-            {/* Agency - Yes / No */}
             <div className="">
-              <p className="text-sm text-blue-600 font-medium mb-2">
+              <p className="text-sm text-[#6C25FF] font-medium mb-2">
                 Are you an agency?
               </p>
 
@@ -211,18 +134,16 @@ const Signup = () => {
                 </label>
               </div>
             </div>
-
-            {/* Submit */}
             <button
-              className="w-full bg-blue-600 text-white py-2 absolute bottom-[-50%] rounded-md
-                   hover:bg-blue-700 transition"
+              className="w-full bg-[#6C25FF] text-white py-2 absolute sm:relative sm:bottom-0 bottom-[-50%] rounded-md
+                    transition"
+             onClick={handleSubmit}
             >
               Create Account
             </button>
           </div>
           </div>
         </div>
-      )}
     </>
   );
 };
