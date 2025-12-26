@@ -12,8 +12,9 @@ const Login = () => {
       const handleSubmit=()=>{
         let user = localStorage.getItem("user")
          user = JSON.parse(user)
-        if(user?.email === loginForm.email || user?.password === loginForm.password){
+        if(user?.email === loginForm.email && user?.password === loginForm.password){
             setIsLogin(true)
+            localStorage.setItem("isLogin",true)
             setLoggedInUser(user)
             navigate("/account")
         }else{

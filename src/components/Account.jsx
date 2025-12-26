@@ -6,9 +6,10 @@ import cam from "./images/cam.svg"
 import { LogOut } from "lucide-react";
 
 const Account = () => {
-  const { loggedInUser, isLogin, setIsLogin } = useContext(userContext);
+  const { loggedInUser, setIsLogin } = useContext(userContext);
   const navigate = useNavigate();
   useEffect(() => {
+    const isLogin = localStorage.getItem("isLogin");
     if (!isLogin) {
       navigate("/login");
     }
@@ -16,7 +17,7 @@ const Account = () => {
 
   const handleLogout=()=>{
     setIsLogin(false)
-    navigate("/")
+    navigate("/login")
   }
  
   return (

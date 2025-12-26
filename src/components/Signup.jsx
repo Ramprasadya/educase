@@ -19,11 +19,12 @@ const Signup = () => {
       [field]: value,
     }));
   };
-console.log(signUpForm)
+
   const handleSubmit  =()=>{
       localStorage.setItem("user", JSON.stringify(signUpForm))
       setLoggedInUser(signUpForm)
       setIsLogin(true)
+      localStorage.setItem("isLogin",true)
       navigate("/account")
   }
   
