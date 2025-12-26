@@ -13,6 +13,7 @@ function App() {
        <Route path="/signup" element={<Signup/>} />
        <Route path="/login" element={<Login/>} />
        <Route path="/account" element={<Account/>} />
+       <Route path="*" element={<div className="flex w-full h-screen justify-center items-center">404 Not Found</div>} />
      </Routes>
     </>
   )
